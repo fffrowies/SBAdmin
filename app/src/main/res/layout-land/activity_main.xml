@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".MainActivity">
+    android:background="@drawable/background_horiz"
+    tools:context="com.fffrowies.commadmin.MainActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -14,13 +14,13 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:src="@drawable/logo" />
 
         <TextView
             android:id="@+id/txvSlogan"
-            android:layout_width="250dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/slogan"
@@ -28,29 +28,24 @@
 
     </LinearLayout>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <info.hoang8f.widget.FButton
             android:id="@+id/btnSignUp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
             android:shadowColor="@android:color/black"
             android:text="Sign Up"
             android:textColor="@android:color/white"
             app:cornerRadius="4dp"
             app:fButtonColor="@color/btnSignUp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnSignIn"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
             app:shadowEnabled="true"
             app:shadowHeight="5dp" />
 
@@ -59,21 +54,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
             android:shadowColor="@android:color/black"
             android:text="Sign In"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             app:cornerRadius="4dp"
             app:fButtonColor="@color/btnSignActive"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btnSignUp"
             app:shadowEnabled="true"
             app:shadowHeight="5dp" />
 
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
 </RelativeLayout>

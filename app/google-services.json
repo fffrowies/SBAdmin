@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "544548221941",
+    "firebase_url": "https://sbadmin-4d980.firebaseio.com",
+    "project_id": "sbadmin-4d980",
+    "storage_bucket": "sbadmin-4d980.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:544548221941:android:e5e620ed049e410a",
+        "android_client_info": {
+          "package_name": "com.fffrowies.sbadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "544548221941-k0vk6t54tmvpj6njsfpnmpd95sm0u2nh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fffrowies.sbadmin",
+            "certificate_hash": "5aa328af1e12b5462c2fa1a7b5df8718a1f8410b"
+          }
+        },
+        {
+          "client_id": "544548221941-3bdo4ojl43iblait78vi44vhn4tc51fa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjchfyOCQYP-Lb5efHef3UqW9yHokdzMA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "544548221941-3bdo4ojl43iblait78vi44vhn4tc51fa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
