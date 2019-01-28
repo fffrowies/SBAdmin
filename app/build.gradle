@@ -53,5 +53,8 @@ dependencies {
     //SQLite Asset Helper
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
 
+    //Material Search Bar
+    implementation 'com.github.mancj:MaterialSearchBar:0.7.1'
+
 }
 apply plugin: 'com.google.gms.google-services'
