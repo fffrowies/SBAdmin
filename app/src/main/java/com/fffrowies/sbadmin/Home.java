@@ -28,15 +28,16 @@ import com.squareup.picasso.Picasso;
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    //Firebase
     FirebaseDatabase database;
-    DatabaseReference category;
+    DatabaseReference categories;
+    FirebaseRecyclerAdapter<Category, CategoryViewHolder> adapter;
 
-    TextView txvFullName;
-
+    //View
     RecyclerView recycler_category;
     RecyclerView.LayoutManager layoutManager;
 
-    FirebaseRecyclerAdapter<Category, CategoryViewHolder> adapter;
+    TextView txvFullName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class Home extends AppCompatActivity
 
         //Init Firebase
         database = FirebaseDatabase.getInstance();
-        category = database.getReference("Category");
+        categories = database.getReference("Category");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +75,7 @@ public class Home extends AppCompatActivity
         txvFullName = (TextView) headerView.findViewById(R.id.txvFullName);
         txvFullName.setText(Common.currentUser.getName());
 
-        //Load category list
+        //Load categories list
         recycler_category = (RecyclerView) findViewById(R.id.recycler_category);
         recycler_category.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -86,7 +87,7 @@ public class Home extends AppCompatActivity
     private void loadCategory() {
 
         adapter = new FirebaseRecyclerAdapter<Category, CategoryViewHolder>
-                (Category.class, R.layout.category_item, CategoryViewHolder.class, category) {
+                (Category.class, R.layout.category_item, CategoryViewHolder.class, categories) {
             @Override
             protected void populateViewHolder(CategoryViewHolder viewHolder, Category model, int position) {
 

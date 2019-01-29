@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import info.hoang8f.widget.FButton;
+
 public class MainActivity extends AppCompatActivity {
 
     Button btnSignIn, btnSignUp;
@@ -17,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnSignIn = (Button) findViewById(R.id.btnSignIn);
-        btnSignUp = (Button) findViewById(R.id.btnSignUp);
+        btnSignIn = (FButton) findViewById(R.id.btnSignIn);
+        btnSignUp = (FButton) findViewById(R.id.btnSignUp);
 
         txvSlogan = (TextView) findViewById(R.id.txvSlogan);
 
