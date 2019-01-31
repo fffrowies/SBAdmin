@@ -57,7 +57,7 @@
             android:layout_weight="1"
             android:shadowColor="@android:color/black"
             android:text="Sign In"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             app:cornerRadius="4dp"
             app:fButtonColor="@color/btnSignActive"
             app:shadowEnabled="true"

@@ -60,7 +60,7 @@ public class ProductList extends AppCompatActivity {
         //Get Intent here
         if (getIntent() != null) categoryId = getIntent().getStringExtra("CategoryId");
 
-        if (!categoryId.isEmpty() && categoryId != null) {
+        if (categoryId != null && !categoryId.isEmpty()) {
 
             loadProductList(categoryId);
         }
@@ -122,7 +122,7 @@ public class ProductList extends AppCompatActivity {
                 Product.class,
                 R.layout.product_item,
                 ProductViewHolder.class,
-                productList.orderByChild("Name").equalTo(text.toString())  // Compare name
+                productList.orderByChild("name").equalTo(text.toString())  // Compare name
         ) {
             @Override
             protected void populateViewHolder(ProductViewHolder viewHolder, Product model, int position) {
@@ -147,7 +147,7 @@ public class ProductList extends AppCompatActivity {
     }
 
     private void loadSuggest() {
-        productList.orderByChild("CategoryId").equalTo(categoryId)
+        productList.orderByChild("categoryId").equalTo(categoryId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -171,7 +171,7 @@ public class ProductList extends AppCompatActivity {
                 Product.class,
                 R.layout.product_item,
                 ProductViewHolder.class,
-                productList.orderByChild("CategoryId").equalTo(categoryId)
+                productList.orderByChild("categoryId").equalTo(categoryId)
         ) {
             @Override
             protected void populateViewHolder(ProductViewHolder viewHolder, Product model, int position) {

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.fffrowies.sbadmin.Common.Common;
 import com.fffrowies.sbadmin.Interface.ItemClickListener;
 import com.fffrowies.sbadmin.Model.Category;
+import com.fffrowies.sbadmin.Service.ListenOrder;
 import com.fffrowies.sbadmin.ViewHolder.CategoryViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -82,6 +83,10 @@ public class Home extends AppCompatActivity
         recycler_category.setLayoutManager(layoutManager);
 
         loadCategory();
+
+        //Register Service
+        Intent service = new Intent(Home.this, ListenOrder.class);
+        startService(service);
     }
 
     private void loadCategory() {

@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.fffrowies.sbadmin.Common.Common;
 import com.fffrowies.sbadmin.Model.Request;
@@ -36,7 +37,21 @@ public class OrderStatus extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recycler_order_status.setLayoutManager(layoutManager);
 
-        loadOrders(Common.currentUser.getPhone());
+        //If we start OrderStatus activity from Home activity we will no put
+        //any extra, so we just loadOrder by phone from Common
+        if (getIntent() == null) {
+
+            Toast.makeText(this, "> > > OPCION 'A' > > >", Toast.LENGTH_SHORT).show();
+
+            loadOrders(Common.currentUser.getPhone());
+        }
+        else {
+
+            Toast.makeText(this, "< < < OPCION 'B' < < <", Toast.LENGTH_SHORT).show();
+
+            loadOrders(Common.currentUser.getPhone());
+//            loadOrders(getIntent().getStringExtra("userPhone"));
+        }
     }
 
     private void loadOrders(String phone) {
@@ -49,20 +64,11 @@ public class OrderStatus extends AppCompatActivity {
             @Override
             protected void populateViewHolder(OrderViewHolder viewHolder, Request model, int position) {
                 viewHolder.txvOrderId.setText(adapter.getRef(position).getKey());
-                viewHolder.txvOrderStatus.setText(convertCodeToStatus(model.getStatus()));
+                viewHolder.txvOrderStatus.setText(Common.convertCodeToStatus(model.getStatus()));
                 viewHolder.txvOrderPhone.setText(model.getPhone());
                 viewHolder.txvOrderAddress.setText(model.getAddress());
             }
         };
         recycler_order_status.setAdapter(adapter);
-    }
-
-    private String convertCodeToStatus(String status) {
-        if (status.equals("0"))
-            return "Placed";
-        else if (status.equals("1"))
-            return "On my way";
-        else
-            return "Shipped";
     }
 }
