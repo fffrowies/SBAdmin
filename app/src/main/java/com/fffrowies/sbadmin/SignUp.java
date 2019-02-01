@@ -1,14 +1,14 @@
 package com.fffrowies.sbadmin;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fffrowies.sbadmin.Common.Common;
 import com.fffrowies.sbadmin.Model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,9 +22,6 @@ public class SignUp extends AppCompatActivity {
     MaterialEditText edtPhone, edtName, edtPassword;
     Button btnSignUp;
 
-    ProgressBar progressBar;
-    TextView txvProgressBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +33,6 @@ public class SignUp extends AppCompatActivity {
 
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressbar);
-        progressBar.setVisibility(View.INVISIBLE);
-        txvProgressBar = (TextView) findViewById(R.id.txvProgressBar);
-
         //Init Firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = database.getReference("User");
@@ -47,37 +40,40 @@ public class SignUp extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (Common.isConnectedToInternet(getBaseContext()))
+                {
+                    final ProgressDialog mDialog = new ProgressDialog(SignUp.this);
+                    mDialog.setMessage("Please waiting...");
+                    mDialog.show();
 
-                progressBar.setVisibility(View.VISIBLE);
-                txvProgressBar.setText("Please waiting...");
+                    table_user.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            //Check if user phone is already registered
+                            if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
+                                mDialog.dismiss();
+                                Toast.makeText(SignUp.this, "Phone Number already registered", Toast.LENGTH_SHORT).show();
+                            } else {
+                                mDialog.dismiss();
+                                User user = new User(edtName.getText().toString(), edtPassword.getText().toString());
+                                table_user.child(edtPhone.getText().toString()).setValue(user);
 
-                table_user.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        //Check if user phone is already registered
-                        if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
-                            progressBar.setVisibility(View.INVISIBLE);
-                            txvProgressBar.setText("");
-
-                            Toast.makeText(SignUp.this, "Phone Number already registered", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUp.this, "Sign Up successfully !", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
                         }
-                        else {
-                            progressBar.setVisibility(View.INVISIBLE);
-                            txvProgressBar.setText("");
 
-                            User user = new User(edtName.getText().toString(), edtPassword.getText().toString());
-                            table_user.child(edtPhone.getText().toString()).setValue(user);
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            Toast.makeText(SignUp.this, "Sign Up successfully !", Toast.LENGTH_SHORT).show();
-                            finish();
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                    });
+                }
+                else
+                {
+                    Toast.makeText(SignUp.this, "Please, check your connection!!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
     }

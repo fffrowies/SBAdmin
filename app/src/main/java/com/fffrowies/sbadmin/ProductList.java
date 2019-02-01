@@ -9,8 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.fffrowies.sbadmin.Common.Common;
 import com.fffrowies.sbadmin.Interface.ItemClickListener;
 import com.fffrowies.sbadmin.Model.Product;
 import com.fffrowies.sbadmin.ViewHolder.ProductViewHolder;
@@ -58,11 +62,18 @@ public class ProductList extends AppCompatActivity {
         recycler_product.setLayoutManager(layoutManager);
 
         //Get Intent here
-        if (getIntent() != null) categoryId = getIntent().getStringExtra("CategoryId");
+        if (getIntent() != null)
+            categoryId = getIntent().getStringExtra("CategoryId");
 
-        if (categoryId != null && !categoryId.isEmpty()) {
-
-            loadProductList(categoryId);
+        if (categoryId != null && !categoryId.isEmpty())
+        {
+            if (Common.isConnectedToInternet(getBaseContext()))
+                loadProductList(categoryId);
+            else
+            {
+                Toast.makeText(ProductList.this, "Please, check your connection!!!", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
 
         //Search

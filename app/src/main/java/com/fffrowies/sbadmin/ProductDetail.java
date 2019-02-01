@@ -5,12 +5,15 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.fffrowies.sbadmin.Common.Common;
 import com.fffrowies.sbadmin.Database.Database;
 import com.fffrowies.sbadmin.Model.Order;
 import com.fffrowies.sbadmin.Model.Product;
@@ -73,9 +76,17 @@ public class ProductDetail extends AppCompatActivity {
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppbar);
 
         //Get product Id from Intent
-        if (getIntent() != null) productId = getIntent().getStringExtra("ProductId");
-        if (!productId.isEmpty()) {
-            getDetailProduct(productId);
+        if (getIntent() != null)
+            productId = getIntent().getStringExtra("ProductId");
+        if (!productId.isEmpty())
+        {
+            if (Common.isConnectedToInternet(getBaseContext()))
+                getDetailProduct(productId);
+            else
+            {
+                Toast.makeText(ProductDetail.this, "Please, check your connection!!!", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
     }
 

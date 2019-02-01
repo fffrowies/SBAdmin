@@ -9,36 +9,10 @@
     android:background="@drawable/background"
     tools:context=".SignUp">
 
-    <ProgressBar
-        android:id="@+id/progressbar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/colorAccent"
-        android:max="100"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txvProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_marginTop="8dp"
-        android:background="#00000000"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/please_waiting" />
-
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/edtPhone"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="94dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
@@ -49,7 +23,7 @@
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvProgressBar"
+        app:layout_constraintTop_toTopOf="parent"
         app:met_baseColor="@android:color/white"
         app:met_floatingLabel="highlight"
         app:met_maxCharacters="12"
