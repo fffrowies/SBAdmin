@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import io.paperdb.Paper;
+
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -53,6 +55,9 @@ public class Home extends AppCompatActivity
         //Init Firebase
         database = FirebaseDatabase.getInstance();
         categories = database.getReference("Category");
+
+        //Init Paper
+        Paper.init(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +172,10 @@ public class Home extends AppCompatActivity
             startActivity(orderStatusIntent);
 
         } else if (id == R.id.nav_log_out) {
+            //Delete Remember user & password
+            Paper.book().destroy();
+
+            //Logout
             Intent signInIntent = new Intent(Home.this, SignIn.class);
             signInIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signInIntent);
