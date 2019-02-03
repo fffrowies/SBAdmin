@@ -221,11 +221,9 @@ public class ProductList extends AppCompatActivity {
                             Toast.makeText(
                                     ProductList.this,
                                     "" + model.getName() + " was removed from Favorites", Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });
-
 
                 final Product local = model;
 
