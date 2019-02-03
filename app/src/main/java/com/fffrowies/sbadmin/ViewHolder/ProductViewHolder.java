@@ -11,7 +11,7 @@ import com.fffrowies.sbadmin.R;
 
 public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public TextView product_name;
-    public ImageView product_image;
+    public ImageView product_image, favorite_image;
 
     private ItemClickListener itemClickListener;
 
@@ -24,6 +24,7 @@ public class ProductViewHolder extends RecyclerView.ViewHolder implements View.O
 
         product_name = (TextView) itemView.findViewById(R.id.product_name);
         product_image = (ImageView) itemView.findViewById(R.id.product_image);
+        favorite_image = (ImageView) itemView.findViewById(R.id.favorite);
 
         itemView.setOnClickListener(this);
     }

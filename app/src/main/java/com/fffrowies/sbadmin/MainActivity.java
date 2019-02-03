@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         btnSignUp = (FButton) findViewById(R.id.btnSignUp);
 
         txvSlogan = (TextView) findViewById(R.id.txvSlogan);
-        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/Libertinage.ttf");
+        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/Lemonada-Light.ttf");
         txvSlogan.setTypeface(face);
 
         //Init Paper

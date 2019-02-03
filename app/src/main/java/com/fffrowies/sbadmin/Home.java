@@ -179,7 +179,6 @@ public class Home extends AppCompatActivity
             Intent signInIntent = new Intent(Home.this, SignIn.class);
             signInIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signInIntent);
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

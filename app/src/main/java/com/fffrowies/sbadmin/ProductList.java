@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.fffrowies.sbadmin.Common.Common;
+import com.fffrowies.sbadmin.Database.Database;
 import com.fffrowies.sbadmin.Interface.ItemClickListener;
 import com.fffrowies.sbadmin.Model.Product;
 import com.fffrowies.sbadmin.ViewHolder.ProductViewHolder;
@@ -47,6 +48,9 @@ public class ProductList extends AppCompatActivity {
     List<String> suggestList = new ArrayList<>();
     MaterialSearchBar materialSearchBar;
 
+    //Favorites
+    Database localDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +59,9 @@ public class ProductList extends AppCompatActivity {
         //Firebase
         database = FirebaseDatabase.getInstance();
         productList = database.getReference("Products");
+
+        //Local DB
+        localDB = new Database(this);
 
         recycler_product = (RecyclerView) findViewById(R.id.recycler_product);
         recycler_product.setHasFixedSize(true);
@@ -185,11 +192,40 @@ public class ProductList extends AppCompatActivity {
                 productList.orderByChild("categoryId").equalTo(categoryId)
         ) {
             @Override
-            protected void populateViewHolder(ProductViewHolder viewHolder, Product model, int position) {
+            protected void populateViewHolder(final ProductViewHolder viewHolder, final Product model, final int position) {
 
                 viewHolder.product_name.setText(model.getName());
                 Picasso.with(getBaseContext()).load(model.getImage())
                         .into(viewHolder.product_image);
+
+                //Add Favorites
+                if (localDB.isFavorite(adapter.getRef(position).getKey()))
+                    viewHolder.favorite_image.setImageResource(R.drawable.ic_favorite_black_24dp);
+
+                //Click to change status of Favorites
+                viewHolder.favorite_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!localDB.isFavorite(adapter.getRef(position).getKey()))
+                        {
+                            localDB.addToFavorites(adapter.getRef(position).getKey());
+                            viewHolder.favorite_image.setImageResource(R.drawable.ic_favorite_black_24dp);
+                            Toast.makeText(
+                                    ProductList.this,
+                                    "" + model.getName() + " was added to Favorites", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            localDB.removeFromFavorites(adapter.getRef(position).getKey());
+                            viewHolder.favorite_image.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                            Toast.makeText(
+                                    ProductList.this,
+                                    "" + model.getName() + " was removed from Favorites", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
+
 
                 final Product local = model;
 
