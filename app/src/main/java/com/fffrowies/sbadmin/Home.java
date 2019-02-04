@@ -20,11 +20,12 @@ import android.widget.Toast;
 import com.fffrowies.sbadmin.Common.Common;
 import com.fffrowies.sbadmin.Interface.ItemClickListener;
 import com.fffrowies.sbadmin.Model.Category;
-import com.fffrowies.sbadmin.Service.ListenOrder;
+import com.fffrowies.sbadmin.Model.Token;
 import com.fffrowies.sbadmin.ViewHolder.CategoryViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 
 import io.paperdb.Paper;
@@ -96,9 +97,14 @@ public class Home extends AppCompatActivity
             return;
         }
 
-        //Register Service
-        Intent service = new Intent(Home.this, ListenOrder.class);
-        startService(service);
+        updateToken(FirebaseInstanceId.getInstance().getToken());
+    }
+
+    private void updateToken(String token) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference tokens = db.getReference("Tokens");
+        Token data = new Token(token, false);     //false because this token is from Client
+        tokens.child(Common.currentUser.getPhone()).setValue(data);
     }
 
     private void loadCategory() {

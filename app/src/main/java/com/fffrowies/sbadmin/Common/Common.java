@@ -5,9 +5,17 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.fffrowies.sbadmin.Model.User;
+import com.fffrowies.sbadmin.Remote.APIService;
+import com.fffrowies.sbadmin.Remote.RetrofitClient;
 
 public class Common {
     public static User currentUser;
+
+    private static final String BASE_URL = "https://fcm.googleapis.com/";
+
+    public static APIService getFCMService() {
+        return RetrofitClient.getClient(BASE_URL).create(APIService.class);
+    }
 
     public static String convertCodeToStatus(String status) {
         if (status.equals("0"))
@@ -19,7 +27,6 @@ public class Common {
     }
 
     public static final String DELETE = "Delete";
-
     public static final String USER_KEY = "User";
     public static final String PWD_KEY = "Password";
 
